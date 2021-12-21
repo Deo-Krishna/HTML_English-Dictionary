@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Dictionary</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="header">
+<h1>English Dictionary</h1>
+</div>
+
+
+<div class="wrapper">
+<div class="words">
+<input type="text" id="search" placeholder="search...">
+<button onclick="search()">Go</button>
+
+<ul id="word_list"></ul>
+
+</div>
+
+<div class="word">
+<h3 id="word_text"></h3>
+<p id="definition"></p>
+
+<hr>
+<h3>Sentence:</h3>
+<li id="related"></li>
+
+</div>
+
+</div>
+<script>
+	var dictionary = [
+						{
+							word:"apple",
+							def:"A round fruit with seed at its center",
+							rel:["The red <b>apple</b> is hanging on the tree."]
+						},
+						{
+							word:"baby",
+							def:"The young one of a human",
+							rel:["I love my <b>baby</b>."]
+						},
+						{
+							word:"car",
+							def:"transport people from place to place",
+							rel:["the best transport to carry 4 people is <b>car</b>."]
+						},
+						{
+							word:"computer",
+							def:"An electronic device",
+							rel:["Charles Babbage is known as the father of <b>computer</b>."]
+						},
+						{
+							word:"mosquito",
+							def:"An insect",
+							rel:["<b>Mosquito</b> is an insect that suck blood of human and animals."]
+						},
+						{
+							word:"pot",
+							def:"A vessel made of mud",
+							rel:["In summers <b>pots</b> are used to store water."]
+						},
+						{
+							word:"car",
+							def:"transport people from place to place",
+							rel:["the best transport to carry 4 people is <b>car</b>."]
+						},
+						{
+							word:"computer",
+							def:"An electronic device",
+							rel:["Charles Babbage is known as the father of <b>computer</b>."]
+						},
+						{
+							word:"mosquito",
+							def:"An insect",
+							rel:["<b>Mosquito</b> is an insect that suck blood of human and animals."]
+						},
+	];
+	
+	//fill the dictionary with words
+	function init()
+	{
+        for (var i = 0; i < dictionary.length; i++){
+			    document.getElementById('word_list').innerHTML  += "<li onclick='show(" + i + ")'>" + dictionary[i].word + "</li>";
+		   }
+    }
+	
+	
+	//call the init function when page loads
+	init();
+		
+	//display a word ,its definition and related words
+	function show(i)
+	{
+		document.getElementById('word_text').innerHTML = dictionary[i].word;
+		document.getElementById('definition').innerHTML = dictionary[i].def;
+		
+		var list ="";
+		
+		for(var j = 0; j < dictionary[i].rel.length; j++){
+			list += "<li>" + dictionary[i].rel[j] + "</li>";
+			document.getElementById('related').innerHTML = list;
+		}
+	}
+	
+	// show first word in the dictionary when page loads
+	show(0);
+	
+	//search functionality
+	function search()
+	{
+		query = document.getElementById('search').value;
+		
+		if(query == ""){
+			return;
+		}
+		
+		found = -1;//initialize found to false
+		
+		for(var i = 0; i < dictionary.length; i++){
+			if(query == dictionary[i].word){
+				found = i;
+				break;
+			}else{
+				document.getElementById('word_text').innerHTML = "Word not found";
+				document.getElementById('definition').innerHTML = "The word you entered is not found in our dictionary";
+				document.getElementById('related').innerHTML = "No sentence";
+			}
+		}
+		
+		if(found >= 0){
+			show(found);
+		}
+		
+	}
+	
+	
+	
+</script>
+</body>
+</html>
